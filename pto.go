@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/exec"
 	"strconv"
 	"time"
 )
@@ -20,11 +21,23 @@ func main() {
 		log.Fatal(err)
 	}
 
+	printCalendar(strconv.Itoa(month), year)
+
 	for _, holiday := range holidays {
 		if int(holiday.Date.Month()) == month {
 			printDateHeading(holiday.Date.Time, holiday.Name)
 		}
 	}
+}
+
+// TODO: cal version can vary between Linux distributions (with varying functionality). Alternatives?
+func printCalendar(month string, year string) {
+	out, err := exec.Command("cal", "-3", month, year).Output()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("```\n%s```\n", out)
 }
 
 func printDateHeading(date time.Time, name string) {
