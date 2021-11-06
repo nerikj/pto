@@ -10,8 +10,8 @@ import (
 )
 
 func main() {
-	year := os.Args[2]
-	month, err := strconv.Atoi(os.Args[3])
+	year := os.Args[1]
+	month, err := strconv.Atoi(os.Args[2])
 	if err != nil {
 		log.Fatal(err)
 	}
