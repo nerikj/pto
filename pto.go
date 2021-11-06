@@ -22,25 +22,23 @@ func main() {
 
 	for _, holiday := range holidays {
 		if int(holiday.Date.Month()) == month {
-			date := swedishDate(holiday.Date.Time)
-			fmt.Printf("\n# %s (%s)\n", date, holiday.Name)
+			printDateHeading(holiday.Date.Time, holiday.Name)
 		}
 	}
 }
 
-func swedishDate(t time.Time) string {
+func printDateHeading(date time.Time, name string) {
 	days := []string{
 		"sön", "mån", "tis", "ons", "tors", "fre", "lör",
 	}
-
 	months := []string{
 		"jan", "feb", "mar", "apr", "maj", "jun", "jul", "aug", "sep", "okt", "nov", "dec",
 	}
 
-	date := fmt.Sprintf(
+	dateStr := fmt.Sprintf(
 		"%s %d %s",
-		days[t.Weekday()], t.Day(), months[t.Month()-1],
+		days[date.Weekday()], date.Day(), months[date.Month()-1],
 	)
 
-	return date
+	fmt.Printf("\n# %s (%s)\n", dateStr, name)
 }
